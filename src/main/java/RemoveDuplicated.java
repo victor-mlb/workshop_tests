@@ -1,3 +1,4 @@
+import java.util.List;
 
 /**
  * Define a function RemoveDuplicate(nlist) to remove duplicate elements from list.
@@ -14,7 +15,7 @@ public class RemoveDuplicated {
         this.api = api;
     }
 
-    public void call() {
-        api.getResult();
+    public List<String> call() {
+        return api.getResult();
     }
 }
