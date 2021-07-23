@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4285054a-9f83-4b32-ab96-917a7d81f59a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/EmailApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RemoveDuplicated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RemoveDuplicated.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,5 +51,16 @@
       <updated>1627051785096</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
