@@ -5,9 +5,8 @@
  *     o) minimum value
  *     o) maximum value
  *     o) number of elements in the sequence
- *     o) number of elements in the sequence == 6
  *     o) average value
- *     o) average value >= 20
+ *     o) number of elements in the sequence == 6 && average value >= 20
  *
  * For example: [6, 9, 15, -2, 92, 11]
  *
