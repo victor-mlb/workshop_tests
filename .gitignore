@@ -24,4 +24,5 @@ hs_err_pid*
 
 # Gradle and Jacoco build files
 .idea/
+.gradle/
 build/
