@@ -14,7 +14,11 @@
  *     o) maximum value = 92
  *     o) number of elements in the sequence = 6
  *     o) average value = 21.833333
+ *     o) true
  *
+ * EXTRA CHALLENGE:
+ * Get the list of numbers from an API (check EmailApi for examples)
  */
-public class Practice {
+public class ListHelper {
+
 }

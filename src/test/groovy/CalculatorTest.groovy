@@ -1,14 +1,14 @@
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class ExampleTest extends Specification {
+class CalculatorTest extends Specification {
 
     def "should sum"() {
         given:
             int valueA = 1
             int valueB = 2
         when:
-            int result = Example.sum(valueA, valueB)
+            int result = Calculator.sum(valueA, valueB)
         then:
             result == (valueA + valueB)
     }
@@ -16,7 +16,7 @@ class ExampleTest extends Specification {
     @Unroll
     def "should divide"() {
         when:
-            float result = Example.divide(valueA, valueB)
+            float result = Calculator.divide(valueA, valueB)
         then:
             result == expectedResult
         where:
