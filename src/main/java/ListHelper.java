@@ -1,8 +1,5 @@
 import api.ListApi;
-
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.DoubleStream;
 
 /**
  *
@@ -25,6 +22,7 @@ import java.util.stream.DoubleStream;
  * EXTRA CHALLENGE:
  * Get the list of numbers from an API (check EmailApi for examples)
  */
+
 public class ListHelper {
 
     ListApi listApi;
