@@ -13,7 +13,6 @@ public class EmailService {
 
     private final EmailApi emailApi;
 
-
     public EmailService(EmailApi emailApi) {
         this.emailApi = emailApi;
     }
