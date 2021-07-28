@@ -82,9 +82,10 @@ class EmailServiceTest extends Specification {
     }
 
     def "should save email" (){
-        given:
+        given: "An email that does not exist in the system database"
             Email mockedEmail = new Email(1, "pessoal@email.com");
 
+        and: "an instance of the service class"
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
             EmailService emailService = new EmailService(mockEmailApi)
 
@@ -111,12 +112,12 @@ class EmailServiceTest extends Specification {
             inputEmail       | inputId    || expectedErro       | expectedMessage
             null             | 1          || RuntimeException   | ERRO_NO_EMAIL
             null             | 0          || RuntimeException   | ERRO_NO_EMAIL
-            null             | null       || RuntimeException   | ERRO_NO_EMAIL
             null             | -1         || RuntimeException   | ERRO_NO_EMAIL
+            null             | null       || RuntimeException   | ERRO_NO_EMAIL
             ""               | 1          || RuntimeException   | ERRO_NO_EMAIL
             ""               | 0          || RuntimeException   | ERRO_NO_EMAIL
-            ""               | null       || RuntimeException   | ERRO_NO_EMAIL
             ""               | -1         || RuntimeException   | ERRO_NO_EMAIL
+            ""               | null       || RuntimeException   | ERRO_NO_EMAIL
     }
 
     def "should error to update with invalid id" (){

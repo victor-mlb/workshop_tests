@@ -26,10 +26,11 @@ class CalculatorTest extends Specification {
             1.0f   | 0f     | 0f
     }
 
-    def "should absoluteSum"(){
-        when:
+    @Unroll
+    def "should absolute sum operation"(){
+        when: "the absolute sum operation is performed"
             Integer result = Calculator.absoluteSum(valueA, valueB)
-        then:
+        then: "the result must always be positive for number input"
             result == expectedResult
         where:
             valueA  |   valueB  | expectedResult
