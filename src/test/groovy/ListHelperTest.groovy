@@ -2,6 +2,7 @@ import api.ListApi
 import org.mockito.Mockito
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class ListHelperTest extends Specification {
 
@@ -79,6 +80,7 @@ class ListHelperTest extends Specification {
             result
     }
 
+    @Unroll
     def "should check values with false result"() {
         given:
             sharedListTest.add(MAX_REFERENCE_VALUE)
@@ -99,7 +101,7 @@ class ListHelperTest extends Specification {
             [20, 20, 20, 20, 20, 20, 20]    || false // avg 20 with seven elemments
     }
 
-
+    @Unroll
     def "should error to load elemments"() {
         given:
             ListApi mockListApi = Mockito.mock(ListApi)
