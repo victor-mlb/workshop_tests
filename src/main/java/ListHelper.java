@@ -56,11 +56,16 @@ public class ListHelper {
     }
 
     public Double avgValue(){
-        return list().stream(). mapToDouble(x -> x).average().getAsDouble();
+        return list().stream().mapToDouble(x -> x).average().getAsDouble();
     }
 
     public Boolean valueVerification(){
-        if (sequenceSize() == REFERENCE_LIST_SIZE && this.avgValue() >= REFERENCE_LIST_AVG){
+        List<Integer> listElemments = list();
+
+        if (listElemments.size() == REFERENCE_LIST_SIZE && listElemments.stream()
+                                                            .mapToDouble(x -> x)
+                                                                    .average()
+                                                                    .getAsDouble() >= REFERENCE_LIST_AVG){
             return true;
         }
         return false;
