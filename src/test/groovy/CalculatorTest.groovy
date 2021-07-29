@@ -32,13 +32,11 @@ class CalculatorTest extends Specification {
             Integer result = Calculator.absoluteSum(valueA , valueB)
         then:
             expectedResult == result
-
         where:
             valueA | valueB | expectedResult
-             null  |  null  | null
-             null  |   1    | null
-               1   |  null  | null
-               1   |   1    |  2
-
+            null   | 1      | null
+            1      | null   | null
+            1      | 1      |  2
+            -1     | -1     |  2
     }
 }

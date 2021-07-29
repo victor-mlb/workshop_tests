@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Objects;
-
 public class Email {
     private Long id;
     private String email;

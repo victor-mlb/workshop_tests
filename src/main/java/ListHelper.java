@@ -1,4 +1,6 @@
 import api.ListApi;
+
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,34 +34,43 @@ public class ListHelper {
     }
 
     public Integer minValue(){
-        List<Integer> list = listApi.findAll();
-        return list.stream().mapToInt(x-> x).min().getAsInt();
+        List<Integer> list = findAll();
+        return list.stream().mapToInt(x-> x).min().orElseThrow(() -> new RuntimeException("Empty List"));
     }
 
     public Integer maxValue(){
-        List<Integer> list = listApi.findAll();
-        return list.stream().mapToInt(x-> x).max().getAsInt();
+        List<Integer> list = findAll();
+        return list.stream().mapToInt(x-> x).max().orElseThrow(() -> new RuntimeException("Empty List"));
     }
 
     public Integer numberOfElements(){
         return listApi.findAll().size();
     }
 
-    public Double overage() {
-        List<Integer> list = listApi.findAll();
-        return list.stream().mapToDouble(x -> x).average().getAsDouble();
+    public Double average() {
+        List<Integer> list = findAll();
+        return average(list);
     }
 
     public Boolean validation() {
-        List<Integer> list = listApi.findAll();
-        int count = 0;
+        List<Integer> list = findAll();
 
-        if (list.size() < 6) throw new RuntimeException("The list has less than 6 elements");
-
-        for (int i = 0; i < 6; i++) {
-            count = count + list.get(i);
+        if (list.size() != 6) {
+            throw new RuntimeException("The list need has 6 elements");
         }
 
-        return count / 6 >= 20;
+        return average(list) >= 20;
+    }
+
+    private Double average(List<Integer> list) {
+        return list.stream().mapToDouble(x -> x).average().orElseThrow(() -> new RuntimeException("Empty List"));
+    }
+
+    private List<Integer> findAll() {
+        List<Integer> list = listApi.findAll();
+        if(list == null) {
+            return Collections.emptyList();
+        }
+        return list;
     }
 }

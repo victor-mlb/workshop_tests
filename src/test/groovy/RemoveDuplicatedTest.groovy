@@ -8,7 +8,6 @@ class RemoveDuplicatedTest extends Specification {
     @Unroll
     def "should remove duplicate values"() {
         given:
-
             ListApi mockedListApi = Mockito.mock(ListApi)
             Mockito.when(mockedListApi.findAll()).thenReturn(mockedList)
             RemoveDuplicated removeDuplicated = new RemoveDuplicated(mockedListApi)

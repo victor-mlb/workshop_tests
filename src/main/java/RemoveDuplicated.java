@@ -1,9 +1,8 @@
 import api.ListApi;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Define a function RemoveDuplicate(nlist) to remove duplicate elements from list.
@@ -22,8 +21,11 @@ public class RemoveDuplicated {
 
     public List<Integer> removeDuplicateValue(){
         List<Integer> list = listApi.findAll();
-        if(list == null) return Collections.emptyList();
 
-        return new ArrayList<>(new LinkedHashSet<>(list));
+        if(list == null) {
+            return Collections.emptyList();
+        }
+
+        return list.stream().distinct().collect(Collectors.toList());
     }
 }
