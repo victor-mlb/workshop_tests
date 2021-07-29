@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  *
  * Your task is to process a sequence of integer numbers to determine the following statistics:
@@ -20,5 +24,44 @@
  * Get the list of numbers from an API (check EmailApi for examples)
  */
 public class ListHelper {
+
+    private List<Integer> list() {
+        List<Integer> lista = new ArrayList<>();
+        lista.add(6);
+        lista.add(9);
+        lista.add(15);
+        lista.add(-2);
+        lista.add(92);
+        lista.add(11);
+
+        return lista;
+    }
+
+    public Integer checkMinimum() {
+        return list().stream()
+                .min(Integer::compare).get();
+    }
+
+    public Integer checkMaximum() {
+        return list().stream()
+                .max(Integer::compare).get();
+    }
+
+    public Integer elementNumberList() {
+        return list().size();
+    }
+
+    public Double averageList() {
+        return list().stream()
+                .collect(Collectors.averagingInt(cal -> cal));
+    }
+
+    public boolean validationNumber() {
+        if (elementNumberList() == 6 && averageList() >= 20) {
+            return true;
+        }
+
+        return false;
+    }
 
 }
