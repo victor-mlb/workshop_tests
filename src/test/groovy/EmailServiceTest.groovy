@@ -19,13 +19,31 @@ class EmailServiceTest extends Specification {
         then:
             result == exprectedResult
         where:
-            lista                                                                                                                          | exprectedResult
-            [new Email(1L, 'dbc@mail.com'), new Email(2L, 'abc@mail.com'), new Email(3L, 'cbc@mail.com'),  new Email(4L, 'bbc@mail.com')]  | [new Email(2L, 'abc@mail.com'),new Email(4L, 'bbc@mail.com'),new Email(3L, 'cbc@mail.com'),new Email(1L, 'dbc@mail.com')]
-            null                                                                                                                           | []
+            lista          | exprectedResult
+            exampleList()  | orderedList()
+            null           | []
+    }
+
+    def exampleList() {
+        return [
+                new Email(1L, 'dbc@mail.com'),
+                new Email(2L, 'abc@mail.com'),
+                new Email(3L, 'cbc@mail.com'),
+                new Email(4L, 'bbc@mail.com'),
+        ]
+    }
+
+    def orderedList() {
+        return [
+                new Email(2L, 'abc@mail.com'),
+                new Email(4L, 'bbc@mail.com'),
+                new Email(3L, 'cbc@mail.com'),
+                new Email(1L, 'dbc@mail.com'),
+        ]
     }
 
     @Unroll
-    def "should return update"() {
+    def "should validate before update"() {
         given:
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
 
@@ -39,25 +57,29 @@ class EmailServiceTest extends Specification {
             id   | newEmail       | expectedResult
             0    | 'tes@mail.com' | "ID should not be empty"
             null | 'tes@mail.com' | "ID should not be empty"
-            -1   | null           | "Email should not be empty"
+            1    | null           | "Email should not be empty"
             null | null           | "Email should not be empty"
             -1   | ""             | "Email should not be empty"
     }
 
     @Unroll
-    def "should return update "() {
+    def "should return update"() {
         given:
-            Email mockEmail = email
-
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
-            Mockito.when(mockEmailApi.get(id))thenReturn(mockEmail)
+            Mockito.when(mockEmailApi.get(id)).thenReturn(email)
+
+            Email savedEmail = null
+            Mockito.when(mockEmailApi.update(Mockito.any()))
+                    .then({ args ->
+                        savedEmail = args.getArgument(0)
+                    })
 
             EmailService emailService = new EmailService(mockEmailApi);
-
         when:
-            emailService.update(id, newEmail)
+            def result = emailService.update(id, newEmail)
         then:
-            newEmail
+            result.email == newEmail
+            savedEmail.email == newEmail
         where:
             id  | newEmail       | email
             1L  | 'bbb@mail.com' | new Email(1L, 'dbc@mail.com')
@@ -75,9 +97,9 @@ class EmailServiceTest extends Specification {
             def msg = thrown(RuntimeException)
             msg.message == expectedResult
         where:
-            mail           | expectedResult
-            ""             | "Email should not be empty"
-            null           | "Email should not be empty"
+            mail | expectedResult
+            ""   | "Email should not be empty"
+            null | "Email should not be empty"
     }
 
     @Unroll
@@ -85,14 +107,22 @@ class EmailServiceTest extends Specification {
         given:
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
 
+            Email savedEmail = null
+            Mockito.when(mockEmailApi.save(Mockito.any()))
+                    .then({ args ->
+                        savedEmail = args.getArgument(0)
+                    })
+
             EmailService emailService = new EmailService(mockEmailApi)
         when:
-             emailService.save(mail)
+            def email = emailService.save(mail)
         then:
-             mail
+            savedEmail.id != null
+            savedEmail.email == mail
+            email.id == savedEmail.id
+            email.email == mail
         where:
             mail          | _
            'abc@mail.com' | _
-
     }
 }

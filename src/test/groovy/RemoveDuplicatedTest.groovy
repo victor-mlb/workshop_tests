@@ -1,16 +1,21 @@
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class RemoveDuplicatedTest extends Specification{
 
-    def "shoud removeDuplicate"() {
+    @Unroll
+    def "should removeDuplicate"() {
         given:
             RemoveDuplicated removeDuplicated = new RemoveDuplicated()
         when:
-            List<Integer> result = removeDuplicated.removeDuplicate()
+            List<Integer> result = removeDuplicated.removeDuplicate(list)
         then:
             result == expectedResult
         where:
-            expectedResult | _
-            [1, 2, 3]      | _
+            list          | expectedResult
+            null          | []
+            []            | []
+            [1,2]         | [1,2]
+            [1,1,2,2,3,3] | [1,2,3]
     }
 }
