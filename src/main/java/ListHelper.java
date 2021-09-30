@@ -1,3 +1,7 @@
+import api.ListApi;
+
+import java.util.List;
+
 /**
  *
  * Your task is to process a sequence of integer numbers to determine the following statistics:
@@ -21,4 +25,44 @@
  */
 public class ListHelper {
 
+    public static final String NO_ELEMENTS = "No elements";
+    private final ListApi listApi;
+
+    public ListHelper(ListApi listApi) {
+        this.listApi = listApi;
+    }
+
+    public List<Integer> getList() {
+        List<Integer> list = this.listApi.fetchList();
+
+        if( list == null || list.isEmpty())
+            throw new RuntimeException(NO_ELEMENTS);
+
+        return list;
+    }
+
+    public Integer getMin() {
+        return getList().stream().min(Integer::compareTo).orElseThrow(() -> new RuntimeException(NO_ELEMENTS));
+    }
+
+    public Integer getMax() {
+        return getList().stream().max(Integer::compareTo).orElseThrow(() -> new RuntimeException(NO_ELEMENTS));
+    }
+
+    public Integer getSize() {
+        return getList().size();
+    }
+
+    public Double getAverage() {
+        return getList().stream().mapToInt(Integer::intValue).average().orElseThrow(() -> new RuntimeException(NO_ELEMENTS));
+    }
+
+    public boolean validate() {
+
+        if (getSize() == 6 && getAverage() >= 20 ) {
+            return true;
+        }
+
+        return false;
+    }
 }
