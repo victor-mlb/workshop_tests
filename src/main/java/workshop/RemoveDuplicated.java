@@ -5,6 +5,7 @@ import workshop.api.IntegerApi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -19,11 +20,12 @@ import java.util.List;
 public class RemoveDuplicated {
 
     public static <T> List<T> call(Collection<T> list) {
-        HashSet<T> result = new HashSet<>(list);
-        return new ArrayList<>(result);
+        if(list == null || list.isEmpty()) return Collections.emptyList();
+        return new ArrayList<>(new HashSet<>(list));
     }
 
     public static <T> List<T> call(T[] list) {
+        if(list == null || list.length == 0) return Collections.emptyList();
         return call(Arrays.asList(list));
     }
 
