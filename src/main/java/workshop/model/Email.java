@@ -1,6 +1,4 @@
-package model;
-
-import java.util.Objects;
+package workshop.model;
 
 public class Email {
     private Long id;

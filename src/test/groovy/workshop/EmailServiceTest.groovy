@@ -1,5 +1,7 @@
-import api.EmailApi
-import model.Email
+package workshop
+
+import workshop.api.EmailApi
+import workshop.model.Email
 import org.mockito.Mockito
 import spock.lang.Specification
 
@@ -17,7 +19,7 @@ class EmailServiceTest extends Specification {
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
             Mockito.when(mockEmailApi.fetchList()).thenReturn(mockedList)
 
-            EmailService emailService = new EmailService(mockEmailApi)
+        EmailService emailService = new EmailService(mockEmailApi)
         when:
             def result = emailService.orderedList()
         then:

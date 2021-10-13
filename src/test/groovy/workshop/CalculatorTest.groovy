@@ -1,3 +1,5 @@
+package workshop
+
 import spock.lang.Specification
 import spock.lang.Unroll
 

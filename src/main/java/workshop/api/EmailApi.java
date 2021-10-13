@@ -1,6 +1,6 @@
-package api;
+package workshop.api;
 
-import model.Email;
+import workshop.model.Email;
 
 import java.util.List;
 

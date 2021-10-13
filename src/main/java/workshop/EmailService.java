@@ -1,7 +1,8 @@
-import api.EmailApi;
-import model.Email;
+package workshop;
 
-import java.util.Collection;
+import workshop.api.EmailApi;
+import workshop.model.Email;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
