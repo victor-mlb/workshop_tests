@@ -6,13 +6,32 @@ import spock.lang.Unroll
 class CalculatorTest extends Specification {
 
     def "should sum"() {
-        given:
-            int valueA = 1
-            int valueB = 2
         when:
             int result = Calculator.sum(valueA, valueB)
         then:
-            result == (valueA + valueB)
+            result == expectedResult
+        where:
+            valueA  | valueB | expectedResult
+            1       | 1      | 2
+            1       | 0      | 1
+            -1      | 2      | 1
+            -1      | -1     | -2
+    }
+
+    def "should sum absolute"() {
+        when:
+            Integer result = Calculator.absoluteSum(valueA, valueB)
+        then:
+            result == expectedResult
+        where:
+            valueA  | valueB | expectedResult
+            1       | 1      | 2
+            1       | 0      | 1
+            -2      | -2     | 4
+            2       | -2     | 4
+            -2      | 2      | 4
+            null    | 1      | null
+            1    | null      | null
     }
 
     @Unroll
