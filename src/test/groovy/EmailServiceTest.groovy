@@ -5,6 +5,84 @@ import spock.lang.Specification
 
 class EmailServiceTest extends Specification {
 
+
+    def "save email"() {
+        given:
+        Email email = new Email(1233,"guilherme")
+
+        EmailApi mockEmailApi = Mockito.mock(EmailApi)
+        Mockito.doNothing().when(mockEmailApi).save(email)
+
+        EmailService emailService = new EmailService(mockEmailApi)
+
+        when:
+        def result = emailService.save("guilherme")
+        then:
+        result.email ==  email.email
+    }
+
+    def "should return exception in email empty or empty"() {
+        given:
+        Email mockedList = null
+
+        EmailApi mockEmailApi = Mockito.mock(EmailApi)
+        Mockito.doNothing().when(mockEmailApi).save(mockedList)
+
+        EmailService emailService = new EmailService(mockEmailApi)
+        when:
+        emailService.save(mail)
+        then:
+
+        def test = thrown(expectedException)
+        test.message == message
+        where:
+        mail | expectedException | message
+        null | RuntimeException  | "Email should not be empty"
+        ""   | RuntimeException  | "Email should not be empty"
+    }
+
+    def "updade email"() {
+        given:
+        Email email = new Email(1234,"guilherme")
+
+        EmailApi mockEmailApi = Mockito.mock(EmailApi)
+        Mockito.when(mockEmailApi.get(1234)).thenReturn(email)
+
+        EmailService emailService = new EmailService(mockEmailApi)
+
+        when:
+        def result = emailService.update(1234,"lucas")
+        then:
+        result.email ==  email.email
+    }
+
+    def "should return exception in updade email empty or empty"() {
+        given:
+        Email mockedList = null
+
+        EmailApi mockEmailApi = Mockito.mock(EmailApi)
+        Mockito.doNothing().when(mockEmailApi).update(mockedList)
+
+        EmailService emailService = new EmailService(mockEmailApi)
+
+        when:
+        emailService.update(id, newEmail)
+
+        then:
+        def test = thrown(expectedException)
+        test.message == message
+
+        where:
+         id   | newEmail     | expectedException | message
+         1    | null         | RuntimeException  | "Email should not be empty"
+         1    | ""           | RuntimeException  | "Email should not be empty"
+         null | "guilherme"  | RuntimeException  | "ID should not be empty"
+         0    | "guilherme"  | RuntimeException  | "ID should not be empty"
+        -10   | "guilherme"  | RuntimeException  | "ID should not be empty"
+
+    }
+
+
     def "should return ordered list"() {
         given:
             List<Email> mockedList = [
@@ -28,4 +106,18 @@ class EmailServiceTest extends Specification {
                     new Email(1L, 'dbc@mail.com')
             ]
     }
+    def "should return list empty"() {
+        given:
+        List<Email> mockedList = null
+
+        EmailApi mockEmailApi = Mockito.mock(EmailApi)
+        Mockito.when(mockEmailApi.fetchList()).thenReturn(mockedList)
+
+        EmailService emailService = new EmailService(mockEmailApi)
+        when:
+        def result = emailService.orderedList()
+        then:
+        result == Collections.emptyList()
+    }
+
 }
