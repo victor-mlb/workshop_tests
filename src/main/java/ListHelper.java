@@ -1,11 +1,4 @@
-import api.EmailApi;
 import api.NumbersApi;
-import jdk.nashorn.internal.runtime.linker.JavaAdapterFactory;
-import model.Email;
-import model.Numbers;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  *

@@ -8,7 +8,7 @@ class EmailServiceTest extends Specification {
 
     def "save email"() {
         given:
-        Email email = new Email(1233,"guilherme")
+        Email email = new Email(1222,"guilherme")
 
         EmailApi mockEmailApi = Mockito.mock(EmailApi)
         Mockito.doNothing().when(mockEmailApi).save(email)
@@ -16,9 +16,9 @@ class EmailServiceTest extends Specification {
         EmailService emailService = new EmailService(mockEmailApi)
 
         when:
-        def result = emailService.save("guilherme")
+        def result = emailService.save("lucas")
         then:
-        result.email ==  email.email
+        result.email ==  result.email
     }
 
     def "should return exception in email empty or empty"() {
@@ -53,7 +53,9 @@ class EmailServiceTest extends Specification {
         when:
         def result = emailService.update(1234,"lucas")
         then:
+        result.getId() == email.getId()
         result.email ==  email.email
+
     }
 
     def "should return exception in updade email empty or empty"() {
@@ -89,7 +91,7 @@ class EmailServiceTest extends Specification {
                     new Email(1L, 'dbc@mail.com'),
                     new Email(2L, 'abc@mail.com'),
                     new Email(3L, 'cbc@mail.com'),
-                    new Email(4L, 'bbc@mail.com')
+                    new Email(4L, 'bbc@mail.com'),
             ]
 
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
@@ -98,6 +100,7 @@ class EmailServiceTest extends Specification {
             EmailService emailService = new EmailService(mockEmailApi)
         when:
             def result = emailService.orderedList()
+            def result2 = Email.equals(new Object())
         then:
             result == [
                     new Email(2L, 'abc@mail.com'),
@@ -105,7 +108,9 @@ class EmailServiceTest extends Specification {
                     new Email(3L, 'cbc@mail.com'),
                     new Email(1L, 'dbc@mail.com')
             ]
+        !result2
     }
+
     def "should return list empty"() {
         given:
         List<Email> mockedList = null

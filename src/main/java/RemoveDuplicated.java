@@ -1,5 +1,6 @@
 import api.NumbersApi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -16,16 +17,12 @@ import java.util.stream.Collectors;
 public class RemoveDuplicated {
 
     public List<Integer> distinctListOrder(Integer[] numbers){
-        Integer[] ja = {};
-        List<Integer> numberEmpty = Arrays.asList(ja);
-        if (numbers == null){
-            System.out.println(numberEmpty);
-            return numberEmpty;
+        if (numbers == null || numbers.length == 0){
+            return new ArrayList<>();
         }
         Integer[] num = numbers;
         List<Integer> distinctList = Arrays.asList(num).stream().distinct().collect(Collectors.toList());
         Collections.sort(distinctList);
-        System.out.println(distinctList);
         return distinctList;
     }
 
