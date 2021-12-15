@@ -1,7 +1,11 @@
-import api.EmailApi;
+import api.EmailAPI;
+import exceptions.EmailListException;
 import model.Email;
 
-import java.util.Collection;
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,16 +15,16 @@ import java.util.stream.Collectors;
 
 public class EmailService {
 
-    private final EmailApi emailApi;
+    private final EmailAPI emailApi;
 
 
-    public EmailService(EmailApi emailApi) {
+    public EmailService(EmailAPI emailApi) {
         this.emailApi = emailApi;
     }
 
     public Email save(String mail) {
-        if(mail == null || mail.isEmpty()){
-            throw new RuntimeException("Email should not be empty");
+        if (isBlank(mail)) {
+            throw new EmailListException("Email should not be empty");
         }
 
         Email email = new Email();
@@ -31,16 +35,16 @@ public class EmailService {
         return email;
     }
 
-    public Email update(Long id, String newEmail) {
-        if(newEmail == null || newEmail.isEmpty()){
-            throw new RuntimeException("Email should not be empty");
+    public Email update(Integer id, String newEmail) throws Exception {
+        if (isBlank(newEmail)) {
+            throw new EmailListException("Email should not be empty");
         }
 
-        if(id == null || id <= 0){
-            throw new RuntimeException("ID should not be empty");
+        if (id == null || id <= 0) {
+            throw new EmailListException("ID should not be empty");
         }
 
-        Email email = emailApi.get(id);
+        Email email = emailApi.get(id, emailApi.fetchList());
         email.setEmail(newEmail);
         emailApi.update(email);
 
@@ -48,13 +52,13 @@ public class EmailService {
     }
 
     private List<Email> list() {
-        return emailApi.fetchList();
+        return isNotEmpty(emailApi) ? emailApi.fetchList() : null;
     }
 
     public List<Email> orderedList() {
         List<Email> emails = list();
 
-        if(emails == null) {
+        if (isEmpty(emails)) {
             return Collections.emptyList();
         }
 
