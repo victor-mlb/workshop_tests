@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.ObjectUtils;
+
 public class Calculator {
 
     public static int sum(int a, int b) {
@@ -5,7 +7,7 @@ public class Calculator {
     }
 
     public static float divide(float value, float dividend) {
-        if(dividend == 0) {
+        if (dividend == 0) {
             return 0;
         }
 
@@ -13,7 +15,7 @@ public class Calculator {
     }
 
     public static Integer absoluteSum(Integer a, Integer b) {
-        if(a == null || b == null) {
+        if (ObjectUtils.isEmpty(a) || ObjectUtils.isEmpty(b)) {
             return null;
         }
 
