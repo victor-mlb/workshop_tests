@@ -6,16 +6,9 @@ import spock.lang.Unroll
 
 class EmailServiceTest extends Specification {
 
-    private String
-
+    @Unroll
     def "should return ordered list"() {
         given:
-            List<Email> mockedList = [
-                    new Email(1L, 'dbc@mail.com'),
-                    new Email(2L, 'abc@mail.com'),
-                    new Email(3L, 'cbc@mail.com'),
-                    new Email(4L, 'bbc@mail.com')
-            ]
 
             EmailApi mockEmailApi = Mockito.mock(EmailApi)
             Mockito.when(mockEmailApi.fetchList()).thenReturn(mockedList)
@@ -24,12 +17,23 @@ class EmailServiceTest extends Specification {
         when:
             def result = emailService.orderedList()
         then:
-            result == [
-                    new Email(2L, 'abc@mail.com'),
-                    new Email(4L, 'bbc@mail.com'),
-                    new Email(3L, 'cbc@mail.com'),
-                    new Email(1L, 'dbc@mail.com')
-            ]
+            result == resultExpected
+        where:
+            mockedList                                   | resultExpected
+        [
+                new Email(1L, 'dbc@mail.com'),
+                new Email(2L, 'abc@mail.com'),
+                new Email(3L, 'cbc@mail.com'),
+                new Email(4L, 'bbc@mail.com')
+        ]                                                |
+                [
+                new Email(2L, 'abc@mail.com'),
+                new Email(4L, 'bbc@mail.com'),
+                new Email(3L, 'cbc@mail.com'),
+                new Email(1L, 'dbc@mail.com')
+        ]
+        null                                              | []
+
     }
 
     def "should save email"(){
