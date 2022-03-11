@@ -1,3 +1,5 @@
+import api.NumbersApi;
+
 /**
  *
  * Your task is to process a sequence of integer numbers to determine the following statistics:
@@ -21,4 +23,90 @@
  */
 public class ListHelper {
 
+    private final NumbersApi numbersApi;
+
+    public ListHelper(NumbersApi numbersApi) {
+        this.numbersApi = numbersApi;
+    }
+
+    private int[] getArrayOfnumbers() {
+        return numbersApi.arrayOfNumber();
+    }
+
+    public Integer maximunValue() {
+        int[] numbers = getArrayOfnumbers();
+
+        if(numbers == null) {
+            return null;
+        }
+
+        int maior = numbers[0];
+        for (int i = 1 ; i < numbers.length; i++){
+            if ( numbers[i] > maior) {
+                maior = numbers[i];
+            }
+        }
+        return maior;
+    }
+
+    public Integer minimunValue() {
+        int[] numbers = getArrayOfnumbers();
+
+        if(numbers == null) {
+            return null;
+        }
+
+        int menor = numbers[0];
+        for (int i = 1; i < numbers.length; i++) {
+            if(numbers[i] < menor){
+                menor = numbers[i];
+            }
+        }
+        return menor;
+    }
+
+    public Integer numberOfElements() {
+        int[] numbers = getArrayOfnumbers();
+
+        if(numbers == null) {
+            return null;
+        }
+
+        int numberOfElements =  numbers.length;
+        return numberOfElements;
+    }
+
+    public Double averege(){
+        int[] numbers = getArrayOfnumbers();
+
+        if(numbers == null) {
+            return null;
+        }
+
+        double total = 0;
+
+        for(int i=0; i<numbers.length; i++){
+            total = total + numbers[i];
+        }
+
+        double average = total / numbers.length;
+
+        return average;
+    }
+
+    public Boolean numberOfSequenceTrueOrFalse(){
+        int[] numbers = getArrayOfnumbers();
+
+        if(numbers == null) {
+            return null;
+        }
+
+        double average = averege();
+        int numberOfElements = numberOfElements();
+        if (numberOfElements == 6 && average >= 20){
+            return true;
+        }
+        return false;
+    }
 }
+

@@ -24,4 +24,19 @@ class CalculatorTest extends Specification {
             1.0f    | 1.0f    | 1f
             1.0f    | 0f      | 0f
     }
+
+
+    def "should absoluteSum"() {
+        when:
+        Calculator calculator = new Calculator()
+        Integer result = calculator.absoluteSum(valueA, valueB)
+        then:
+        result == expectedResult
+        where:
+        valueA | valueB | expectedResult
+        1      | 2      | 3
+        null   | 3      | null
+        1      |  null  | null
+
+    }
 }
