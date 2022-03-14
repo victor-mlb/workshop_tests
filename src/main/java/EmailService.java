@@ -19,7 +19,7 @@ public class EmailService {
     }
 
     public Email save(String mail) {
-        if(mail == null || mail.isEmpty()){
+        if(mail == null || mail.trim().isEmpty()){
             throw new RuntimeException("Email should not be empty");
         }
 
@@ -32,7 +32,7 @@ public class EmailService {
     }
 
     public Email update(Long id, String newEmail) {
-        if(newEmail == null || newEmail.isEmpty()){
+        if(newEmail == null || newEmail.trim().isEmpty()){
             throw new RuntimeException("Email should not be empty");
         }
 
