@@ -6,6 +6,14 @@ import spock.lang.Unroll
 
 class EmailServiceTest extends Specification {
 
+    EmailApi mockEmailApi
+    EmailService emailService
+
+    def setup() {
+        mockEmailApi = Mockito.mock(EmailApi)
+        emailService = new EmailService(mockEmailApi)
+    }
+
     def "should return ordered list"() {
         given:
             List<Email> mockedList = [
@@ -15,10 +23,7 @@ class EmailServiceTest extends Specification {
                     new Email(4L, 'bbc@mail.com')
             ]
 
-            EmailApi mockEmailApi = Mockito.mock(EmailApi)
             Mockito.when(mockEmailApi.fetchList()).thenReturn(mockedList)
-
-            EmailService emailService = new EmailService(mockEmailApi)
         when:
             def result = emailService.orderedList()
         then:
@@ -45,10 +50,6 @@ class EmailServiceTest extends Specification {
 
     @Unroll
     def "should return empty email error when saving"() {
-        given:
-        EmailApi mockEmailApi = Mockito.mock(EmailApi)
-
-        EmailService emailService = new EmailService(mockEmailApi)
         when:
         emailService.save(email)
         then:
@@ -63,10 +64,6 @@ class EmailServiceTest extends Specification {
 
     @Unroll
     def "should return email error or empty id when updating"() {
-        given:
-        EmailApi mockEmailApi = Mockito.mock(EmailApi)
-
-        EmailService emailService = new EmailService(mockEmailApi)
         when:
         emailService.update(id, newEmail)
         then:
@@ -84,11 +81,9 @@ class EmailServiceTest extends Specification {
 
     def "should return updated email"() {
         given:
-        EmailApi mockEmailApi = Mockito.mock(EmailApi)
         Long idMock = 5L
         Email emailMock = new Email(5L, "test@test.com")
         Mockito.when(mockEmailApi.get(idMock)).thenReturn(emailMock)
-        EmailService emailService = new EmailService(mockEmailApi)
         String emailUpdateMock = "testUpdate@test.com"
         when:
         Email result = emailService.update(idMock, emailUpdateMock)

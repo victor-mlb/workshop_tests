@@ -6,13 +6,18 @@ import spock.lang.Unroll
 
 class ListHelperTest extends Specification {
 
+    ListApi mockListApi
+    ListHelper listHelper
+
+    def setup() {
+        mockListApi = Mockito.mock(ListApi)
+        listHelper = new ListHelper(mockListApi)
+    }
+    
     def "should return list"() {
         given:
         List<Integer> list = new ArrayList<Integer>([6, 9, 15, -2, 92, 11]);
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         List<Integer> result = listHelper.getList();
         then:
@@ -22,10 +27,7 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return error when fetching list"() {
         given:
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         listHelper.getList();
         then:
@@ -40,10 +42,7 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return min value"() {
         given:
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         Integer result = listHelper.getMinValue();
         then:
@@ -58,10 +57,7 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return max value"() {
         given:
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         Integer result = listHelper.getMaxValue();
         then:
@@ -76,10 +72,7 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return size list"() {
         given:
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         Integer result = listHelper.getSize();
         then:
@@ -93,10 +86,7 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return average"() {
         given:
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         Double result = listHelper.getAverage();
         then:
@@ -110,10 +100,7 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return list valid or invalid"() {
         given:
-        ListApi mockListApi = Mockito.mock(ListApi)
         Mockito.when(mockListApi.fetchList()).thenReturn(list)
-
-        ListHelper listHelper = new ListHelper(mockListApi)
         when:
         Boolean result = listHelper.isValid();
         then:
