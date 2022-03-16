@@ -33,26 +33,28 @@ public class ListHelper {
     public static final String MESSAGE_ERROR_LIST = "Empty or null list";
 
     private ListApi list;
+    private List<Integer> listApi;
 
     public ListHelper(ListApi list) {
         this.list = list;
     }
 
     public List<Integer> getList() {
-        List<Integer> listApi = list.fetchList();
+        if(this.listApi == null)
+            this.listApi = list.fetchList();
 
-        if(listApi == null || listApi.isEmpty())
+        if(this.listApi == null || this.listApi.isEmpty())
             throw new NoSuchElementException(MESSAGE_ERROR_LIST);
 
-        return listApi;
+        return this.listApi;
     }
 
     public Integer getMinValue() {
-       return getList().stream().mapToInt(v -> v).min().orElseThrow(NoSuchElementException::new);
+       return getList().stream().mapToInt(v -> v).min().getAsInt();
     }
 
     public Integer getMaxValue() {
-        return getList().stream().mapToInt(v -> v).max().orElseThrow(NoSuchElementException::new);
+        return getList().stream().mapToInt(v -> v).max().getAsInt();
     }
 
     public Integer getSize() {
@@ -60,7 +62,7 @@ public class ListHelper {
     }
 
     public Double getAverage() {
-        return getList().stream().mapToInt(v -> v).average().orElseThrow(NoSuchElementException::new);
+        return getList().stream().mapToInt(v -> v).average().getAsDouble();
     }
 
     public Boolean isValid() {
