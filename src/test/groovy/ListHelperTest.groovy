@@ -1,6 +1,7 @@
 import api.EmailApi
 import api.ListApi
 import org.mockito.Mockito
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -102,11 +103,13 @@ class ListHelperTest extends Specification {
     @Unroll
     def "should return list valid or invalid"() {
         given:
-            Mockito.when(mockListApi.fetchList()).thenReturn(list)
+            ListApi listApiMock = Mock()
+            def listHelper = new ListHelper(listApiMock)
         when:
             Boolean result = listHelper.isValid();
         then:
             result == expectedResult
+            1 * listApiMock.fetchList() >> list
         where:
             list                     | expectedResult
             [-1, -20, -3, -7]        | false
@@ -114,6 +117,5 @@ class ListHelperTest extends Specification {
             [50, 70, 50]             | false
             [60, 25, 30, 33, 44, 15] | true
     }
-
 
 }
