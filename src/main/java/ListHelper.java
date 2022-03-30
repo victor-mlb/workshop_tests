@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,33 +25,18 @@ import java.util.List;
  * Get the list of numbers from an API (check EmailApi for examples)
  */
 public class ListHelper {
+    private static final Integer MAX_NUMB_ELEMENTS = 6;
+    private static final Integer AVERAGE_VALID=20;
     static Integer searchMinimum(List<Integer> list) {
-      if (list.isEmpty()) {
-          return 0;
-      } else {
-          int min = list.get(0);
-          for (Integer item : list) {
-              if (item < min) {
-                  min = item;
-              }
+      if (list.isEmpty())
+        return 0;
+      return list.stream().min(Comparator.comparing(x -> x)).get();
 
-          }
-          return min;
-      }
   }
     static Integer searchMaximum(List<Integer> list){
-        if (list.isEmpty()) {
+        if (list.isEmpty())
             return 0;
-        } else {
-            int max = list.get(0);
-            for (Integer item : list) {
-                if (item > max) {
-                    max = item;
-                }
-
-            }
-            return max;
-        }
+        return list.stream().max(Comparator.comparing(x -> x)).get();
     }
     static Integer countElements(List<Integer> list){
         return (int) list.stream().count();
@@ -70,10 +56,8 @@ public class ListHelper {
             }
     }
     static Boolean validSequence(List<Integer> list) {
-        if( countElements(list) == 6 &&  (countAverage(list).compareTo(BigDecimal.valueOf(20)) == 1  ))
-            return true;
-        else
-            return false;
+        return (countElements(list) == MAX_NUMB_ELEMENTS &&  (countAverage(list).compareTo(BigDecimal.valueOf(AVERAGE_VALID)) == 1 ));
+
     }
 
 
