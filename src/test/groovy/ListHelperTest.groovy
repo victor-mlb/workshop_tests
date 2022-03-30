@@ -51,6 +51,7 @@ class ListHelperTest extends Specification {
         [ 2,6,3,1]            |      3
         [ 20,60,30,10, 0,-80] |      6.666667
         []                    |      0
+        [0,0,0,0,0]           |      0
     }
     @Unroll
   def "should valid Sequence"(){
