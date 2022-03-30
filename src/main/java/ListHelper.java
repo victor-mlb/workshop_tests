@@ -1,3 +1,7 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
+
 /**
  *
  * Your task is to process a sequence of integer numbers to determine the following statistics:
@@ -20,5 +24,58 @@
  * Get the list of numbers from an API (check EmailApi for examples)
  */
 public class ListHelper {
+    static Integer searchMinimum(List<Integer> list) {
+      if (list.isEmpty()) {
+          return 0;
+      } else {
+          int min = list.get(0);
+          for (Integer item : list) {
+              if (item < min) {
+                  min = item;
+              }
+
+          }
+          return min;
+      }
+  }
+    static Integer searchMaximum(List<Integer> list){
+        if (list.isEmpty()) {
+            return 0;
+        } else {
+            int max = list.get(0);
+            for (Integer item : list) {
+                if (item > max) {
+                    max = item;
+                }
+
+            }
+            return max;
+        }
+    }
+    static Integer countElements(List<Integer> list){
+        return (int) list.stream().count();
+    }
+    static BigDecimal countAverage(List<Integer> list){
+        int count = countElements(list);
+        int sum =0;
+        BigDecimal avg;
+        for (Integer item : list) {
+            sum += item;
+        }
+            if( sum != 0 && count!= 0) {
+                avg = BigDecimal.valueOf(sum).divide(BigDecimal.valueOf(count),6, RoundingMode.HALF_UP);
+                return avg;
+            } else {
+                return new BigDecimal(0);
+            }
+    }
+    static Boolean validSequence(List<Integer> list) {
+        if( countElements(list) == 6 &&  (countAverage(list).compareTo(BigDecimal.valueOf(20)) == 1  ))
+            return true;
+        else
+            return false;
+    }
+
+
 
 }
