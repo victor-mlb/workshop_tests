@@ -1,3 +1,5 @@
+import api.ListApi;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
@@ -24,25 +26,42 @@ import java.util.List;
  * EXTRA CHALLENGE:
  * Get the list of numbers from an API (check EmailApi for examples)
  */
-public class ListHelper {
+public class ListHelper  {
     private static final Integer MAX_NUMB_ELEMENTS = 6;
     private static final Integer AVERAGE_VALID=20;
-    static Integer searchMinimum(List<Integer> list) {
-      if (list.isEmpty())
+
+  private ListApi listApi;
+  private List<Integer> list;
+
+    public ListHelper(ListApi list) {
+    this.listApi = list;
+
+    }
+  List<Integer> getList(){
+    return listApi.fetchList();
+  }
+
+
+  Integer searchMinimum() {
+      this.list = this.getList();
+      if (this.list.isEmpty())
         return 0;
-      return list.stream().min(Comparator.comparing(x -> x)).get();
+      return this.list.stream().min(Comparator.comparing(x -> x)).get();
 
   }
-    static Integer searchMaximum(List<Integer> list){
-        if (list.isEmpty())
+     Integer searchMaximum(){
+       this.list = this.getList();
+           if (this.list.isEmpty())
             return 0;
-        return list.stream().max(Comparator.comparing(x -> x)).get();
+        return this.list.stream().max(Comparator.comparing(x -> x)).get();
     }
-    static Integer countElements(List<Integer> list){
+     Integer countElements(){
+       this.list = this.getList();
         return (int) list.stream().count();
     }
-    static BigDecimal countAverage(List<Integer> list){
-        int count = countElements(list);
+     BigDecimal countAverage(){
+       this.list = this.getList();
+        int count = countElements();
         int sum =0;
         BigDecimal avg;
         for (Integer item : list) {
@@ -55,8 +74,8 @@ public class ListHelper {
                 return new BigDecimal(0);
             }
     }
-    static Boolean validSequence(List<Integer> list) {
-        return (countElements(list) == MAX_NUMB_ELEMENTS &&  (countAverage(list).compareTo(BigDecimal.valueOf(AVERAGE_VALID)) == 1 ));
+     Boolean validSequence() {
+        return (countElements() == MAX_NUMB_ELEMENTS &&  (countAverage().compareTo(BigDecimal.valueOf(AVERAGE_VALID)) == 1 ));
 
     }
 
