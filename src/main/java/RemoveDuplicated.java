@@ -11,16 +11,15 @@ import java.util.List;
 public class RemoveDuplicated {
    public static List<Integer> removeDuplicate(List<Integer> list){
        List<Integer> newList = new ArrayList<>();
-       if (list.isEmpty()) {
-           return list;
+       if(list == null || list.isEmpty()) {
+           return newList;
        } else {
            for (Integer item : list) {
                if (!newList.contains(item)) {
                    newList.add(item);
                }
            }
-           return  newList;
        }
-    }
-
+       return newList;
+   }
 }

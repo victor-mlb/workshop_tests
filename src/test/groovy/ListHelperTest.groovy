@@ -5,14 +5,15 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 class ListHelperTest extends Specification {
-    @Shared
+
     ListApi mockListApi
-    @Shared
+
     ListHelper listHelper
 
-    def setupSpec() {
+    def setup() {
         mockListApi = Mockito.mock(ListApi)
         listHelper = new ListHelper(mockListApi)
+
     }
 
     @Unroll
@@ -84,6 +85,7 @@ class ListHelperTest extends Specification {
             Mockito.when(mockListApi.fetchList()).thenReturn(value)
         when:
             result = listHelper.validSequence()
+            Mockito.verify(mockListApi, Mockito.times(1)).fetchList()
         then:
             result == expectedResult
         where:
@@ -91,7 +93,8 @@ class ListHelperTest extends Specification {
             [2, 6, 3, 1]            | false
             [20, 60, 30, 10, 0, 80] | true
             []                      | false
-    }
 
+
+    }
 
 }

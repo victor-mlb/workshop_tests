@@ -26,41 +26,50 @@ import java.util.List;
  * EXTRA CHALLENGE:
  * Get the list of numbers from an API (check EmailApi for examples)
  */
-public class ListHelper  {
+public class ListHelper extends ListApi {
     private static final Integer MAX_NUMB_ELEMENTS = 6;
     private static final Integer AVERAGE_VALID=20;
 
   private ListApi listApi;
-  private List<Integer> list;
+  private  List<Integer> list;
+  private Integer numbElemnt;
+
+
 
     public ListHelper(ListApi list) {
-    this.listApi = list;
+        this.listApi = list;
 
     }
-  List<Integer> getList(){
-    return listApi.fetchList();
+
+
+  @Override
+  public List<Integer> fetchList() {
+    return this.listApi.fetchList();
+
+
   }
 
-
   Integer searchMinimum() {
-      this.list = this.getList();
+    if( this.list == null )
+        this.list = this.fetchList();
       if (this.list.isEmpty())
         return 0;
       return this.list.stream().min(Comparator.comparing(x -> x)).get();
 
   }
      Integer searchMaximum(){
-       this.list = this.getList();
+       if( this.list == null)
+       this.list = this.fetchList();
            if (this.list.isEmpty())
             return 0;
         return this.list.stream().max(Comparator.comparing(x -> x)).get();
     }
      Integer countElements(){
-       this.list = this.getList();
+      if(this.list == null)
+       this.list = this.fetchList();
         return (int) list.stream().count();
     }
      BigDecimal countAverage(){
-       this.list = this.getList();
         int count = countElements();
         int sum =0;
         BigDecimal avg;
