@@ -88,6 +88,7 @@ class ListHelperTest extends Specification {
             Mockito.verify(mockListApi, Mockito.times(1)).fetchList()
         then:
             result == expectedResult
+
         where:
             value                   | expectedResult
             [2, 6, 3, 1]            | false

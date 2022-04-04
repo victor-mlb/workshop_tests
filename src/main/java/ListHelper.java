@@ -32,7 +32,7 @@ public class ListHelper extends ListApi {
 
   private ListApi listApi;
   private  List<Integer> list;
-  private Integer numbElemnt;
+
 
 
 
@@ -42,31 +42,34 @@ public class ListHelper extends ListApi {
     }
 
 
-  @Override
+
   public List<Integer> fetchList() {
     return this.listApi.fetchList();
 
 
   }
+  public List<Integer> getList(){
+      if(this.list == null) {
+        list = fetchList();
+      }
+    return list;
+  }
 
   Integer searchMinimum() {
-    if( this.list == null )
-        this.list = this.fetchList();
+        this.list = getList();
       if (this.list.isEmpty())
         return 0;
       return this.list.stream().min(Comparator.comparing(x -> x)).get();
 
   }
      Integer searchMaximum(){
-       if( this.list == null)
-       this.list = this.fetchList();
+       this.list =   getList();
            if (this.list.isEmpty())
             return 0;
         return this.list.stream().max(Comparator.comparing(x -> x)).get();
     }
      Integer countElements(){
-      if(this.list == null)
-       this.list = this.fetchList();
+       this.list = getList();
         return (int) list.stream().count();
     }
      BigDecimal countAverage(){
